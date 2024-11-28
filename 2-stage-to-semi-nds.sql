@@ -1,12 +1,15 @@
 use AQI_WAREHOUSE;
 GO 
 
+DROP TABLE IF EXISTS [STAGE].tbl_states; 
+DROP TABLE IF EXISTS [STAGE].zzz_tbl_states;
+
 CREATE TABLE [STAGE].tbl_states
 (
     "id" int PRIMARY KEY IDENTITY(1,1) ,
     state_name NVARCHAR(100),
     state_num_code  VARCHAR(2) , 
-    state_string_code NVARCHAR(2) ,
+    state_string_code VARCHAR(2) ,
     created DATETIME,      -- Changed
     last_updated DATETIME    -- Changed
 )
@@ -17,10 +20,14 @@ CREATE TABLE [STAGE].zzz_tbl_states
     "id" int PRIMARY KEY IDENTITY(1,1) ,
     state_name NVARCHAR(100),
     state_num_code  VARCHAR(2) ,
-    state_string_code NVARCHAR(2) ,
+    state_string_code VARCHAR(2) ,
     created DATETIME,      -- Changed
     last_updated DATETIME    -- Changed
 )
+GO
+
+DROP TABLE IF EXISTS [STAGE].tbl_counties;
+DROP TABLE IF EXISTS [STAGE].zzz_tbl_counties;
 
 CREATE TABLE [STAGE].tbl_counties
 (
@@ -28,6 +35,10 @@ CREATE TABLE [STAGE].tbl_counties
     state_id INT,
     county_name NVARCHAR(100),
     county_code VARCHAR(3) , 
+    fips VARCHAR(5),
+    lat DECIMAL(9,6),
+    lng DECIMAL(9,6),
+    population BIGINT,
     created DATETIME,      -- Changed
     last_updated DATETIME    -- Changed
 )
@@ -38,7 +49,11 @@ create table [STAGE].zzz_tbl_counties
     "id" int PRIMARY KEY IDENTITY(1,1) ,
     state_id INT,
     county_name NVARCHAR(100),
-    county_code VARCHAR(3) ,
+    county_code VARCHAR(3) , 
+    fips VARCHAR(5),
+    lat DECIMAL(9,6),
+    lng DECIMAL(9,6),
+    population BIGINT,
     created DATETIME,      -- Changed
     last_updated DATETIME    -- Changed
 )
