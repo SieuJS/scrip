@@ -28,8 +28,8 @@ CREATE TABLE [STAGE].tbl_aqi_datas
 (
     state_name NVARCHAR(100),
     county_name NVARCHAR(100),
-    state_code  INT,
-    county_code INT,  -- Changed
+    state_code  VARCHAR(2),
+    county_code VARCHAR(3),  -- Changed
     "date" DATE,        -- Changed
     aqi INT,          -- Changed
     category NVARCHAR(50), -- Changed
@@ -44,8 +44,8 @@ CREATE TABLE [STAGE].zzz_tbl_aqi_datas
 (
     state_name NVARCHAR(100),
     county_name NVARCHAR(100),
-    state_code  INT,
-    county_code INT,  -- Changed
+    state_code  VARCHAR(2),
+    county_code VARCHAR(3),  -- Changed
     "date" DATE,        -- Changed
     aqi INT,          -- Changed
     category NVARCHAR(50), -- Changed
@@ -76,10 +76,5 @@ create table [STAGE].tbl_config_table (
 );
 GO
 
-
 insert into [STAGE].[tbl_config_table] values ('[STAGE].[tbl_aqi_datas]', 'last_updated', '1900-01-01 00:00:00.000');
 
-TRUNCATE TABLE [STAGE].zzz_tbl_aqi_datas;
-select max (last_updated_value) from [STAGE].tbl_config_table where table_name = '[STAGE].[tbl_aqi_datas]';
-
-Select * from [STAGE].tbl_config_table;
