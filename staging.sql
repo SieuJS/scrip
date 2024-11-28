@@ -24,7 +24,7 @@ GO
 
 -- Create Staging Tables
 
-CREATE TABLE [STAGE].tblAqiDatas
+CREATE TABLE [STAGE].tbl_aqi_datas
 (
     state_name NVARCHAR(100),
     county_name NVARCHAR(100),
@@ -40,14 +40,24 @@ CREATE TABLE [STAGE].tblAqiDatas
     last_updated DATETIME    -- Changed
 );
 
-CREATE TABLE tblETLControl ( -- Added tbl prefix
-    job_name NVARCHAR(100) PRIMARY KEY,
-    last_successful_etl_time DATETIME,
-    current_etl_time DATETIME
+CREATE TABLE [STAGE].zzz_tbl_aqi_datas
+(
+    state_name NVARCHAR(100),
+    county_name NVARCHAR(100),
+    state_code  INT,
+    county_code INT,  -- Changed
+    "date" DATE,        -- Changed
+    aqi INT,          -- Changed
+    category NVARCHAR(50), -- Changed
+    defining_parameter NVARCHAR(50), -- Changed
+    defining_site NVARCHAR(50),   -- Changed
+    number_of_sites_reporting INT, -- Changed
+    created DATETIME,      -- Changed
+    last_updated DATETIME    -- Changed
 );
 GO
 
-CREATE TABLE tbl_audit_log (
+CREATE TABLE [STAGE].tbl_audit_log (
     id int identity,
     package_name varchar(200), 
     tablename varchar(200) ,
@@ -58,19 +68,18 @@ CREATE TABLE tbl_audit_log (
 GO 
 
 -- create config table 
-create table tbl_config_table (
+create table [STAGE].tbl_config_table (
     id int identity , 
     table_name varchar(200), 
     last_updated_column varchar(100) , 
     last_updated_value datetime
 );
+GO
 
 
-select  * from [STAGE].tblAqiDatas where defining_site = '02-013-0002' ORDER BY state_code, county_code, "date", defining_site, created, last_updated 
-TRUNCATE table [STAGE].tblAqiDatas ;
+insert into [STAGE].[tbl_config_table] values ('[STAGE].[tbl_aqi_datas]', 'last_updated', '1900-01-01 00:00:00.000');
 
-insert into [dbo].[tbl_config_table] values ('[STAGE].[tblAqiDatas]', 'last_updated', '1900-01-01 00:00:00.000');
+TRUNCATE TABLE [STAGE].zzz_tbl_aqi_datas;
+select max (last_updated_value) from [STAGE].tbl_config_table where table_name = '[STAGE].[tbl_aqi_datas]';
 
-select max (last_updated_value) from tbl_config_table where table_name = '[STAGE].[tblAqiDatas]';
-
-Select * from tbl_config_table;
+Select * from [STAGE].tbl_config_table;
