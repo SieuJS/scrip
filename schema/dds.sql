@@ -30,7 +30,7 @@ create table [dds].tbl_dim_counties (
     state_id int foreign key references [dds].tbl_dim_states(state_id),
     lng decimal(9,6),
     lat decimal(9,6),
-    population int,
+    [population] int,
     created datetime,
     last_updated datetime,
     unique (county_code, state_id)
