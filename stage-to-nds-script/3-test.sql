@@ -6,3 +6,5 @@ Select id from [nds].[tbl_sources] where source_name = 'AQI 2022';
 select * from [nds].tbl_counties;
 
 select * from test;
+
+select * from [nds].[tbl_aqi]

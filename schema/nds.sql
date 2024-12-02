@@ -15,14 +15,14 @@ drop table [nds].zzz_tbl_aqi;
 go
 
 create table [nds].tbl_sources (
-    id int identity(1,1),
+    id int primary key identity(1,1),
     source_name nvarchar(100),
     created datetime,
     last_updated datetime
 )
 
 create table [nds].tbl_states (
-    id int identity(1,1),
+    id int primary key identity(1,1),
     state_alpha_code varchar(2),
     state_number_code varchar(2),
     state_name nvarchar(100),
@@ -32,7 +32,7 @@ create table [nds].tbl_states (
 )
 
 create table [nds].tbl_counties (
-    id int identity(1,1),
+    id int primary key identity(1,1),
     county_code varchar(3),
     county_name nvarchar(100),
     county_fips_code varchar(5),
@@ -40,6 +40,7 @@ create table [nds].tbl_counties (
     source_id int,
     created datetime default getdate(),
     last_updated datetime default getdate() 
+    constraint unique_county unique (county_code, state_id)
 )
 
 create table [nds].tbl_aqi (
@@ -54,7 +55,8 @@ create table [nds].tbl_aqi (
     number_of_sites_reporting int,
     source_id int,
     created datetime default getdate(),
-    last_updated datetime default getdate()
+    last_updated datetime default getdate(),
+    
 )
 
 create table [nds].zzz_tbl_states (
@@ -90,7 +92,7 @@ create table [nds].zzz_tbl_aqi (
     last_updated datetime default getdate()
 )
 
-select aqi , category , defining_parameter, defining_site, number_of_sites_reporting, "date", created, last_updated from [nds].tbl_aqi;
+
 
 insert into [nds].tbl_sources ( source_name, created, last_updated) values ( 'AQI 2021', getdate(), getdate())
 insert into [nds].tbl_sources ( source_name, created, last_updated) values ( 'AQI 2022', getdate(), getdate())
