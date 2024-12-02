@@ -59,7 +59,6 @@ create table [nds].tbl_aqi (
     source_id int,
     created datetime default getdate(),
     last_updated datetime default getdate(),
-    
 )
 
 create table [nds].zzz_tbl_states (
