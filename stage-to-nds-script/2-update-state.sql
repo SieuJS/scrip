@@ -53,3 +53,23 @@ set [last_updated_value] = (select max ([last_updated]) from [nds].[tbl_aqi])
 where [table_name] = '[nds].[tbl_aqi]' and (select count (*) from [nds].[tbl_aqi]) > 0
 
 select * from [nds].[tbl_counties];
+
+declare @updated_records int 
+update a
+set 
+    a.county_name = b.county_name,
+    a.source_id = b.source_id,
+    a.last_updated = GETDATE(),
+    a.lng = b.lng,
+    a.lat = b.lat,
+    a.population = b.population
+	
+from [nds].[tbl_counties] a inner join [nds].[zzz_tbl_counties] b
+on   a.county_fips_code = b.county_fips_code 
+set @updated_records = (select @@ROWCOUNT)
+insert into [meta].tbl_audit_log
+select 'stage-to-source.dtsx', '[nds].[tbl_counties]', ?, @updated_records, getdate()
+
+update [meta].[tbl_config_table]
+set [last_updated_value] = (select max ([last_updated]) from [nds].[tbl_counties])
+where [table_name] = '[nds].[tbl_counties]' and (select count (*) from [nds].[tbl_counties]) > 0;

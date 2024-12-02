@@ -22,3 +22,7 @@ insert into [meta].tbl_config_table values ('[stage].[tbl_aqi_data_2021]', '1900
 insert into [meta].tbl_config_table values ('[stage].[tbl_aqi_data_2022]', '1900-01-01 00:00:00.000')
 insert into [meta].tbl_config_table values ('[stage].[tbl_aqi_data_2023]', '1900-01-01 00:00:00.000')
 
+
+insert into [meta].[tbl_config_table] values ('[dds].*', GETDATE())
+
+select * from [meta].[tbl_config_table] ;

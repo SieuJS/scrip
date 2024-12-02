@@ -38,6 +38,9 @@ create table [nds].tbl_counties (
     county_fips_code varchar(5),
     state_id int,
     source_id int,
+    lng Decimal(9,6),
+    lat Decimal(9,6),
+    [population] int,
     created datetime default getdate(),
     last_updated datetime default getdate() 
     constraint unique_county unique (county_code, state_id)
@@ -74,6 +77,9 @@ create table [nds].zzz_tbl_counties(
     state_id int,
     source_id int,
     county_fips_code varchar(5),
+    lng Decimal(9,6),
+    lat Decimal(9,6),
+    [population] int,
     created datetime default getdate(),
     last_updated datetime default getdate() 
 )
