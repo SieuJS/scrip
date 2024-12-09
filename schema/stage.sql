@@ -99,3 +99,5 @@ create table [stage].zzz_tbl_aqi_data_2023 (
     last_updated datetime
 );
 
+
+

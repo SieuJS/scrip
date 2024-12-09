@@ -97,7 +97,7 @@ create table [nds].zzz_tbl_aqi (
     last_updated datetime default getdate()
 )
 
-
+go
 
 insert into [nds].tbl_sources ( source_name, created, last_updated) values ( 'AQI 2021', getdate(), getdate())
 insert into [nds].tbl_sources ( source_name, created, last_updated) values ( 'AQI 2022', getdate(), getdate())
